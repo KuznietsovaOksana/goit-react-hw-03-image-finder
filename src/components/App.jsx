@@ -7,8 +7,7 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Searchbar } from './Searchbar/Searchbar';
 import { Button } from './Button/Button';
 import { Loader } from './Loader/Loader';
-
-// import css from './App.module.css';
+import { Modal } from './Modal/Modal';
 
 export class App extends Component {
   state = {
@@ -66,9 +65,10 @@ export class App extends Component {
   };
 
   render() {
-    const { images, showBtn, error, query, isEmpty, isLoading } = this.state;
-    console.log(images);
+    const { images, showBtn, error, query, isEmpty, isLoading, largeImgUrl } =
+      this.state;
     const hasError = error.length > 0;
+
     return (
       <div className={css.App}>
         <Searchbar onSubmit={this.onFormSubmit} />
@@ -89,6 +89,9 @@ export class App extends Component {
           <ImageGallery list={images} onImageClick={this.onImageClick} />
         )}
         {showBtn && <Button onClick={this.loadMore} />}
+        {largeImgUrl && (
+          <Modal largeImgUrl={largeImgUrl} onImageClick={this.onImageClick} />
+        )}
       </div>
     );
   }
